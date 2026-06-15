@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Створити оголошення</title>
+
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<a href="/">← На головну</a>
+
+<h1>Створення оголошення</h1>
+
+<form method="POST" action="/announcements">
+
+  <div class="form-group">
+
+    <label>Категорія</label>
+
+    <div class="radio-group">
+
+      <label>
+        <input
+          type="radio"
+          name="category"
+          value="sale"
+          <%= data?.category === 'sale' ? 'checked' : '' %>
+        >
+        📦 Продаж
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="category"
+          value="service"
+          <%= data?.category === 'service' ? 'checked' : '' %>
+        >
+        🔧 Послуги
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="category"
+          value="job"
+          <%= data?.category === 'job' ? 'checked' : '' %>
+        >
+        💼 Робота
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="category"
+          value="other"
+          <%= data?.category === 'other' ? 'checked' : '' %>
+        >
+        📌 Інше
+      </label>
+
+    </div>
+
+    <% if (errors.category) { %>
+      <div class="error">
+        <%= errors.category %>
+      </div>
+    <% } %>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Назва</label>
+
+    <input
+      type="text"
+      name="title"
+      placeholder="Коротка назва оголошення"
+      required
+      minlength="5"
+      maxlength="100"
+      value="<%= data?.title || '' %>"
+    >
+
+    <% if (errors.title) { %>
+      <div class="error">
+        <%= errors.title %>
+      </div>
+    <% } %>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Опис</label>
+
+    <textarea
+      name="description"
+      rows="6"
+      placeholder="Детальний опис оголошення..."
+      required
+      minlength="10"
+    ><%= data?.description || '' %></textarea>
+
+    <% if (errors.description) { %>
+      <div class="error">
+        <%= errors.description %>
+      </div>
+    <% } %>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Ціна</label>
+
+    <input
+      type="number"
+      name="price"
+      min="0"
+      step="0.01"
+      required
+      value="<%= data?.price || '' %>"
+    >
+
+    <% if (errors.price) { %>
+      <div class="error">
+        <%= errors.price %>
+      </div>
+    <% } %>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Контакти</label>
+
+    <input
+      type="text"
+      name="contactInfo"
+      placeholder="Email або телефон"
+      required
+      minlength="5"
+      value="<%= data?.contactInfo || '' %>"
+    >
+
+    <% if (errors.contactInfo) { %>
+      <div class="error">
+        <%= errors.contactInfo %>
+      </div>
+    <% } %>
+
+  </div>
+
+  <div class="actions">
+
+    <button type="submit">
+      Опублікувати
+    </button>
+
+    <a href="/" class="cancel-btn">
+      Скасувати
+    </a>
+
+  </div>
+
+</form>
+
+</body>
+</html>
