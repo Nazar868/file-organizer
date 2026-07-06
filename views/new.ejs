@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Нове оголошення — Дошка оголошень</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← На головну</a>
+
+    <div class="page-header">
+      <h1>Створити оголошення</h1>
+    </div>
+
+    <div class="form-card">
+      <form action="/announcements" method="POST" novalidate>
+
+        <div class="form-group">
+          <label class="field-label">Категорія</label>
+          <div class="radio-group">
+            <% const categoryEntries = [
+              ['sale', '📦 Продаж'],
+              ['service', '🔧 Послуги'],
+              ['job', '💼 Робота'],
+              ['other', '📌 Інше'],
+            ]; %>
+            <% categoryEntries.forEach(([value, label]) => { %>
+              <label class="radio-option">
+                <input
+                  type="radio"
+                  name="category"
+                  value="<%= value %>"
+                  required
+                  <%= data?.category === value ? 'checked' : '' %>
+                >
+                <%= label %>
+              </label>
+            <% }) %>
+          </div>
+          <% if (errors.category) { %>
+            <span class="error"><%= errors.category %></span>
+          <% } %>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="title">Назва</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Коротка назва оголошення"
+            required
+            minlength="5"
+            maxlength="100"
+            value="<%= data?.title || '' %>"
+            class="<%= errors.title ? 'has-error' : '' %>"
+          >
+          <% if (errors.title) { %>
+            <span class="error"><%= errors.title %></span>
+          <% } %>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="description">Опис</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="6"
+            placeholder="Детальний опис оголошення..."
+            required
+            minlength="10"
+            class="<%= errors.description ? 'has-error' : '' %>"
+          ><%= data?.description || '' %></textarea>
+          <% if (errors.description) { %>
+            <span class="error"><%= errors.description %></span>
+          <% } %>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="price">Ціна (грн)</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            min="0"
+            step="0.01"
+            value="<%= data?.price || '' %>"
+            class="<%= errors.price ? 'has-error' : '' %>"
+          >
+          <% if (errors.price) { %>
+            <span class="error"><%= errors.price %></span>
+          <% } %>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="contactInfo">Контактна інформація</label>
+          <input
+            type="text"
+            id="contactInfo"
+            name="contactInfo"
+            placeholder="Email або телефон"
+            required
+            minlength="5"
+            value="<%= data?.contactInfo || '' %>"
+            class="<%= errors.contactInfo ? 'has-error' : '' %>"
+          >
+          <% if (errors.contactInfo) { %>
+            <span class="error"><%= errors.contactInfo %></span>
+          <% } %>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Опублікувати</button>
+          <a href="/" class="btn btn-secondary">Скасувати</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
