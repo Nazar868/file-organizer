@@ -1,0 +1,7 @@
+node_modules/
+generated/
+prisma/dev.db
+prisma/dev.db-journal
+.env
+.DS_Store
+npm-debug.log*
